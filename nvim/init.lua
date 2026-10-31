@@ -1,4 +1,22 @@
+
+-- General Behaviour
 vim.opt.clipboard = "unnamedplus"
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+-- Search options
+vim.opt.ignorecase = true  -- Ignore case when searching
+vim.opt.smartcase = true   -- Switch to case-sensitive if you type an uppercase letter
+vim.opt.hlsearch = true    -- Keep matches highlighted
+vim.opt.incsearch = true   -- Show matches incrementally as you type
+
+-- Formatting
+vim.opt.tabstop = 2      -- Number of spaces a <Tab> counts for
+vim.opt.shiftwidth = 2   -- Size of an indent (for >, <, etc.)
+vim.opt.softtabstop = 2  -- Number of spaces a <Tab> counts for while editing
+vim.opt.expandtab = true -- Convert tabs to spaces
+
+-- Plugins
 vim.pack.add({
   {
     src = "https://github.com/nvim-telescope/telescope.nvim",
@@ -10,13 +28,3 @@ vim.pack.add({
   }
 })
 
--- In init.lua
-vim.opt.ignorecase = true  -- Ignore case when searching
-vim.opt.smartcase = true   -- Switch to case-sensitive if you type an uppercase letter
-vim.opt.hlsearch = true    -- Keep matches highlighted
-vim.opt.incsearch = true   -- Show matches incrementally as you type
-
-vim.opt.tabstop = 2      -- Number of spaces a <Tab> counts for
-vim.opt.shiftwidth = 2   -- Size of an indent (for >, <, etc.)
-vim.opt.softtabstop = 2  -- Number of spaces a <Tab> counts for while editing
-vim.opt.expandtab = true -- Convert tabs to spaces
