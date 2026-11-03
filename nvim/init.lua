@@ -29,12 +29,22 @@ vim.pack.add({
   }
 })
 
+-- Telescope config
+
+require('telescope').setup({
+  pickers = {
+    find_files = {
+      follow = "true"
+    }
+  }
+})
+
 local builtin = require('telescope.builtin')
 vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find files' })
 vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
-vim.keymap.set('n', '<leader>fc', builtin.commands, { desc = 'Telescope help tags' })
+vim.keymap.set('n', '<leader>fc', builtin.commands, { desc = 'Telescope commands' })
 vim.keymap.set('n', 'gd', builtin.lsp_definitions, { desc = 'LSP: Goto Definition' })
 vim.keymap.set('n', 'gr', builtin.lsp_references, { desc = 'LSP: Goto References' })
 vim.keymap.set('n', 'gI', builtin.lsp_implementations, { desc = 'LSP: Goto Implementation' })
@@ -42,4 +52,25 @@ vim.keymap.set('n', '<leader>D', builtin.lsp_type_definitions, { desc = 'LSP: Ty
 vim.keymap.set('n', '<leader>ds', builtin.lsp_document_symbols, { desc = 'LSP: Document Symbols' })
 vim.keymap.set('n', '<leader>ws', builtin.lsp_dynamic_workspace_symbols, { desc = 'LSP: Workspace Symbols' })
 vim.keymap.set('n', '<leader>vd', builtin.diagnostics, { desc = 'LSP: View Diagnostics' })
+
+-- clangd language server
+vim.lsp.config.clangd = {
+  cmd = {
+    vim.fn.expand("$LLVM_BIN/clangd.exe"),
+    "--background-index",
+    "--clang-tidy",
+    "--completion-style=detailed",
+    "--header-insertion=iwyu"
+  },
+  root_markers = {
+    ".git",
+    "compile_commands.json",
+    ".clangd"
+  },
+  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' }
+}
+
+if not vim.lsp.is_enabled('clangd') then
+  vim.lsp.enable('clangd')
+end
 
