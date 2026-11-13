@@ -44,5 +44,6 @@ if (Test-Path $vswhere) {
 }
 
 try-add-to-path "$env:USERPROFILE\bin"
+try-add-to-path "$env:USERPROFILE\bin\lua-language-server\bin"
 try-add-to-path "$env:PROGRAMFILES\LLVM\bin"
 

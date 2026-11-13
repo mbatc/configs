@@ -2,6 +2,7 @@
 -- General Behaviour
 vim.g.mapleader = " "
 vim.opt.clipboard = "unnamedplus"
+vim.opt.completeopt = "menuone,noselect"
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -32,9 +33,13 @@ vim.pack.add({
 -- Telescope config
 
 require('telescope').setup({
+  defaults = {
+      
+  },
   pickers = {
     find_files = {
-      follow = "true"
+      follow = true,
+      hidden = true,
     }
   }
 })
@@ -52,6 +57,11 @@ vim.keymap.set('n', '<leader>D', builtin.lsp_type_definitions, { desc = 'LSP: Ty
 vim.keymap.set('n', '<leader>ds', builtin.lsp_document_symbols, { desc = 'LSP: Document Symbols' })
 vim.keymap.set('n', '<leader>ws', builtin.lsp_dynamic_workspace_symbols, { desc = 'LSP: Workspace Symbols' })
 vim.keymap.set('n', '<leader>vd', builtin.diagnostics, { desc = 'LSP: View Diagnostics' })
+vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', {desc = 'Move line down' })
+vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', {desc = 'Move line down' })
+vim.keymap.set('v', '<A-j>', ':m .+1<CR>==', {desc = 'Move line down' })
+vim.keymap.set('v', '<A-k>', ':m .+2<CR>==', {desc = 'Move line down' })
+
 
 -- clangd language server
 vim.lsp.config.clangd = {
@@ -67,10 +77,20 @@ vim.lsp.config.clangd = {
     "compile_commands.json",
     ".clangd"
   },
-  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' }
+  filetypes = { 'c', 'cpp', 'objc', 'objcpp', 'cuda' },
 }
 
 if not vim.lsp.is_enabled('clangd') then
   vim.lsp.enable('clangd')
+end
+
+vim.lsp.config["lua-language-server"] = {
+  cmd = { "lua-language-server" },
+  filetypes = { "lua" },
+  root_markers = { ".git" },
+}
+
+if not vim.lsp.is_enabled('lua-language-server') then
+  vim.lsp.enable('lua-language-server')
 end
 
